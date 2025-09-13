@@ -1,0 +1,280 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Couleurs principales NDB Nuisibles */
+    --background: 0 0% 100%; /* Blanc */
+    --foreground: 224 71% 4%; /* Noir profond */
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 25 95% 33%; /* Marron #8B4513 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 80% 50%; /* Terracotta */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 30 80% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 25 95% 33%;
+
+    --radius: 0.5rem;
+
+    /* Couleurs additionnelles */
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --text: #1a1a1a;
+    --text-light: #6b7280;
+    --bg: #ffffff;
+    --bg-light: #f9fafb;
+
+    /* Espacements */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    --space-3xl: 6rem;
+
+    /* Ombres */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 0 0% 100%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 25 95% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 80% 40%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 15%;
+    --muted-foreground: 220 9% 65%;
+
+    --accent: 30 80% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 20%;
+    --input: 220 13% 20%;
+    --ring: 25 95% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Fix pour les textes */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-foreground font-bold;
+  }
+
+  p,
+  span,
+  div {
+    @apply text-foreground;
+  }
+
+  /* Fix pour les boutons */
+  button {
+    @apply min-h-[44px] px-4 py-2;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-accent-brown hover:bg-accent-brown-light transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-brown;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-accent-brown text-base font-medium rounded-lg text-accent-brown bg-transparent hover:bg-accent-brown hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-brown;
+  }
+
+  .btn-urgent {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-warning hover:bg-orange-600 transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-warning animate-pulse;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-lg bg-white/80 border border-white/20;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+}
+
+@layer utilities {
+  /* Couleurs personnalisées NDB */
+  .text-primary-ndb {
+    color: #8b4513;
+  }
+
+  .bg-primary-ndb {
+    background-color: #8b4513;
+  }
+
+  .text-terracotta {
+    color: #d2691e;
+  }
+
+  .bg-terracotta {
+    background-color: #d2691e;
+  }
+
+  /* Classes de style pour NDB */
+  .text-accent-brown {
+    color: #8b4513;
+  }
+
+  .bg-accent-brown {
+    background-color: #8b4513;
+  }
+
+  .text-accent-brown-light {
+    color: #d2691e;
+  }
+
+  .bg-accent-brown-light {
+    background-color: #d2691e;
+  }
+
+  .text-neutral-dark {
+    color: #1a1a1a;
+  }
+
+  .text-text-light {
+    color: #666666;
+  }
+
+  .bg-bg-light {
+    background-color: #f9fafb;
+  }
+
+  .text-success {
+    color: #22c55e;
+  }
+
+  .bg-success {
+    background-color: #22c55e;
+  }
+
+  .text-warning {
+    color: #f59e0b;
+  }
+
+  .bg-warning {
+    background-color: #f59e0b;
+  }
+
+  .text-error {
+    color: #ef4444;
+  }
+
+  .bg-error {
+    background-color: #ef4444;
+  }
+
+  /* Font heading */
+  .font-heading {
+    font-family: var(--font-inter);
+    font-weight: 700;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}

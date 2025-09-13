@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDB Nuisibles - Hors ligne</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: #8B4513;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .phone {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .phone:hover {
+            background: #6B3410;
+        }
+        .info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            color: #666;
+        }
+        .retry-btn {
+            background: transparent;
+            border: 2px solid #8B4513;
+            color: #8B4513;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .retry-btn:hover {
+            background: #8B4513;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐀</div>
+        <h1>Vous êtes hors ligne</h1>
+        <p>
+            Il semble que vous n'ayez pas de connexion Internet. 
+            Pour accéder à tous nos services, veuillez vérifier votre connexion.
+        </p>
+        
+        <p style="font-weight: bold; color: #8B4513;">
+            Pour une urgence, appelez-nous directement :
+        </p>
+        
+        <a href="tel:0663614157" class="phone">
+            📞 06 63 61 41 57
+        </a>
+        
+        <div class="info">
+            <div class="info-item">
+                <span>⏰</span>
+                <span>Disponible 24h/24, 7j/7</span>
+            </div>
+            <div class="info-item">
+                <span>🚲</span>
+                <span>Intervention rapide en vélo cargo</span>
+            </div>
+            <div class="info-item">
+                <span>🌿</span>
+                <span>Traitement écologique garanti</span>
+            </div>
+        </div>
+        
+        <button class="retry-btn" onclick="window.location.reload()">
+            Réessayer
+        </button>
+    </div>
+    
+    <script>
+        // Recharger automatiquement quand la connexion revient
+        window.addEventListener('online', () => {
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>
