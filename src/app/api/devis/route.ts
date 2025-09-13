@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 
 const devisSchema = z.object({
   propertyType: z.string(),
@@ -27,7 +28,7 @@ const devisSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    const data: any = {};
+    const data: Record<string, any> = {};
 
     // Extraction des données
     formData.forEach((value, key) => {
@@ -46,8 +47,8 @@ export async function POST(request: NextRequest) {
     // Générer un ID unique pour le devis
     const devisId = `DEV-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
-    // Log pour suivi
-    console.log("Nouveau devis:", {
+    // Log pour suivi avec logger centralisé
+    logger.info("Nouveau devis créé", {
       id: devisId,
       client: validatedData.name,
       email: validatedData.email,
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
 
     // Si urgence immédiate, log spécial
     if (validatedData.urgency === "immediate") {
-      console.log("🚨 DEVIS URGENT:", {
+      logger.warn("🚨 DEVIS URGENT", {
         id: devisId,
         phone: validatedData.phone,
         address: validatedData.address,
@@ -84,7 +85,7 @@ export async function POST(request: NextRequest) {
       estimatedPrice: validatedData.estimatedPrice,
     });
   } catch (error) {
-    console.error("Devis API error:", error);
+    logger.error("Devis API error", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(

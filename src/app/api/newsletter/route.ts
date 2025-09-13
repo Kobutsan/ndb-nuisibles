@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 
 const newsletterSchema = z.object({
   email: z.string().email("Email invalide"),
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
     // Envoyer email de bienvenue (simulé)
     await sendWelcomeEmail(email, name);
 
-    console.log("Newsletter subscription:", {
+    logger.info("Newsletter subscription", {
       email,
       name,
       timestamp: new Date().toISOString(),
@@ -67,7 +68,7 @@ async function addToNewsletter(email: string, name?: string) {
 
 async function sendWelcomeEmail(email: string, name?: string) {
   // En production, envoyer un vrai email de bienvenue
-  console.log("Welcome email sent to:", email);
+  logger.debug("Welcome email sent to", { email, name });
 
   // Simuler un délai d'envoi
   await new Promise((resolve) => setTimeout(resolve, 100));

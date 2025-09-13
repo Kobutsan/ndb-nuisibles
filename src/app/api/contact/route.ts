@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 
 // Schema de validation
 const contactSchema = z.object({
@@ -22,8 +23,8 @@ export async function POST(request: NextRequest) {
     // En production, vous devriez configurer un service d'email comme SendGrid ou Resend
     // Pour l'instant, nous simulons l'envoi
 
-    // Log pour suivi (en développement)
-    console.log("Contact form submission:", {
+    // Log pour suivi avec le logger centralisé
+    logger.info("Contact form submission", {
       from: validatedData.email,
       urgency: validatedData.urgency,
       subject: validatedData.subject,
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Si urgence, log spécial
     if (validatedData.urgency === "urgent") {
-      console.log("⚠️ URGENT CONTACT:", validatedData.phone);
+      logger.warn("⚠️ URGENT CONTACT", { phone: validatedData.phone });
     }
 
     // Simuler un délai d'envoi
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
       message: "Message envoyé avec succès",
     });
   } catch (error) {
-    console.error("Contact API error:", error);
+    logger.error("Contact API error", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { logger } from "@/lib/logger";
 
 const urgenceSchema = z.object({
   phone: z.string(),
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
     // En production, utiliser Twilio pour envoyer WhatsApp/SMS
     // Pour l'instant, simulation
 
-    console.log("🚨 URGENCE NDB Nuisibles:", {
+    logger.warn("🚨 URGENCE NDB Nuisibles", {
       client: phone,
       localisation: location,
       message: message,
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
         "Urgence transmise ! Nous vous contactons dans quelques minutes.",
     });
   } catch (error) {
-    console.error("Urgence API error:", error);
+    logger.error("Urgence API error", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
@@ -54,9 +55,13 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function simulateWhatsAppToTeam(data: any) {
+async function simulateWhatsAppToTeam(data: {
+  from: string;
+  location: string;
+  message: string;
+}) {
   // En production : Twilio WhatsApp API
-  console.log("WhatsApp envoyé à l'équipe:", {
+  logger.info("WhatsApp envoyé à l'équipe", {
     message: `🚨 URGENCE NDB Nuisibles
 Client: ${data.from}
 Localisation: ${data.location}
@@ -69,7 +74,7 @@ Répondre rapidement!`,
 
 async function simulateSMSToClient(phone: string) {
   // En production : Twilio SMS API
-  console.log("SMS envoyé au client:", {
+  logger.info("SMS envoyé au client", {
     to: phone,
     message:
       "NDB Nuisibles: Votre demande urgente a été transmise. Nous vous contactons dans quelques minutes.",

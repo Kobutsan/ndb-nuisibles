@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { logger } from "@/lib/logger";
 
 export default function PWARegister() {
   useEffect(() => {
@@ -9,7 +10,9 @@ export default function PWARegister() {
         navigator.serviceWorker
           .register("/sw.js")
           .then((registration) => {
-            console.log("Service Worker enregistré:", registration.scope);
+            logger.debug("Service Worker enregistré", {
+              scope: registration.scope
+            });
 
             // Vérifier les mises à jour toutes les heures
             setInterval(
@@ -20,7 +23,7 @@ export default function PWARegister() {
             );
           })
           .catch((error) => {
-            console.error("Erreur Service Worker:", error);
+            logger.error("Erreur Service Worker", error);
           });
       });
     }

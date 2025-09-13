@@ -1,53 +1,29 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ndbnuisibles.com";
-
-  // Pages statiques
+  const baseUrl = 'https://ndb-nuisibles.vercel.app';
+  const currentDate = new Date();
+  
+  // Pages statiques avec leurs priorités
   const staticPages = [
-    "",
-    "/qui-sommes-nous",
-    "/services/deratisation",
-    "/services/punaises-de-lit",
-    "/services/desinsectisation",
-    "/services/professionnels",
-    "/tarifs",
-    "/processus",
-    "/contact",
-    "/devis",
-    "/chroniques",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: route === "" ? 1 : 0.8,
+    { path: '', priority: 1.0, changeFreq: 'daily' },
+    { path: '/services', priority: 0.9, changeFreq: 'weekly' },
+    { path: '/services/deratisation', priority: 0.9, changeFreq: 'weekly' },
+    { path: '/services/punaises-de-lit', priority: 0.9, changeFreq: 'weekly' },
+    { path: '/services/desinsectisation', priority: 0.9, changeFreq: 'weekly' },
+    { path: '/services/professionnels', priority: 0.8, changeFreq: 'weekly' },
+    { path: '/devis', priority: 0.9, changeFreq: 'monthly' },
+    { path: '/contact', priority: 0.8, changeFreq: 'monthly' },
+    { path: '/qui-sommes-nous', priority: 0.7, changeFreq: 'monthly' },
+    { path: '/tarifs', priority: 0.8, changeFreq: 'weekly' },
+  ];
+  
+  const urls: MetadataRoute.Sitemap = staticPages.map(({ path, priority, changeFreq }) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: currentDate,
+    changeFrequency: changeFreq as any,
+    priority,
   }));
-
-  // Articles de blog (hardcodés pour l'instant)
-  const blogPosts = [
-    "/chroniques/reconnaitre-punaises-lit",
-    "/chroniques/prevention-rats-paris",
-    "/chroniques/traitement-ecologique-cafards",
-    "/chroniques/guide-prevention-nuisibles",
-    "/chroniques/velo-cargo-ecologie-paris",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  // Pages légales
-  const legalPages = [
-    "/mentions-legales",
-    "/politique-confidentialite",
-    "/cgv",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "yearly" as const,
-    priority: 0.3,
-  }));
-
-  return [...staticPages, ...blogPosts, ...legalPages];
+  
+  return urls;
 }
